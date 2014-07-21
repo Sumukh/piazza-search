@@ -1,0 +1,385 @@
+
+<!DOCTYPE html>
+<html class='height_100'>
+<head>
+<title>CS61A Summer 2014 Piazza Search</title>
+<meta content="Search Summer 61A Piazza." name='description'>
+<meta content='width=device-width, initial-scale=1.0' name='viewport'>
+<link href="https://d3ibatyzauff7b.cloudfront.net/assets/application-fed36c275a1421441a1b00d92fb2a37b.css" media="all" rel="stylesheet" type="text/css" />
+<script src="https://d3ibatyzauff7b.cloudfront.net/assets/application-d093ba0a70b080c5a072c896ff93d40a.js" type="text/javascript"></script>
+<!--[if lt IE 9]>
+<link href="https://d3ibatyzauff7b.cloudfront.net/assets/ie-76071597f2842bcd91fc8e1a931fa929.css" media="screen" rel="stylesheet" type="text/css" />
+<script src="https://d3ibatyzauff7b.cloudfront.net/assets/respond.min-d9d09a20f99ea128488a29576bf0652f.js" type="text/javascript"></script>
+<script src="https://d3ibatyzauff7b.cloudfront.net/assets/html5-01533c787c35d4858f5397d89146464c.js" type="text/javascript"></script>
+<![endif]-->
+<link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" media="all" rel="stylesheet" type="text/css" />
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
+<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+<script src="http://demos.algolia.com/algoliasearch.min.js" type="text/javascript"></script>
+
+</head>
+<body>
+<div id='clear-page'>
+<div class='container'>
+<div class='m-l-r-auto m1000'>
+<!--
+DETAILS
+======
+Index: CS61A Index
+Application ID: LHANIWJEIC
+Public API key: 652f308c5f9af905348a8a3c7342fc55
+Index: CS61A Index
+Title: CS61A Search
+Subtitle: Search Piazza
+-->
+
+<style>
+  .search-form {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+    vertical-align: baseline;
+    background: transparent;
+    display: block;
+    line-height: normal;
+    color: #333;
+  }
+  
+  .search-box-wrapper {
+    padding: 10px 15px;
+    font-size: 1em;
+    background-color: #5191d1;
+    border-top-right-radius: 3px;
+    border-top-left-radius: 3px;
+    max-width: 100%;
+    margin: 0px auto 20px auto;
+  }
+  
+  .search-box {
+    margin: 0px 0 0 0;
+    padding: 0 0 0 0;
+    position: relative;
+    height: 45px;
+  }
+  
+  #inputfield {
+    margin-right: 56px;
+  }
+  
+  #inputfield input {
+    width: 100%;
+    height: 45px;
+    display: block;
+    border: 1px solid #cfcfcf;
+    color: #000;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    -webkit-appearance: none;
+    padding: 10px 13px 10px 13px;
+    line-height: 23px;
+    float: left;
+    font-size: 1em;
+    background-color: white;
+    -webkit-rtl-ordering: logical;
+    -webkit-user-select: text;
+    cursor: auto;
+    margin: 0em;
+    border-radius: 4px 0px 0px 4px;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: 300;
+  }
+  #inputfield input:focus {
+    outline-width: 0px;
+  }
+  
+  .search-box .searchbutton {
+    cursor: pointer;
+    display: inline-block;
+    padding: 0px;
+    width: 56px;
+    height: 45px;
+    margin: 0px 0 0 -1px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background-color: #FFFFFF;
+    border: 1px solid #999;
+    text-align: center;
+    color: #5191d1;
+  }
+
+  .detailtext {
+    text-overflow:    ellipsis;   /* IE, Safari (WebKit) */
+    -o-text-overflow: ellipsis;   /* Opera */
+    overflow:hidden;              /* don't show excess chars */
+/*    white-space:nowrap;           /* force single line */
+    max-height: 90px;
+  }
+  .smalltext {
+  }
+  
+  .searchbutton i {
+    display:inline-block;
+    margin-top: 7px;
+    vertical-align: middle;
+    font-size: 25px;
+  }
+  
+  #facets {
+    float: left;
+  }
+  
+  #facets li.active {
+    font-weight: bold;
+  }
+  
+  #hits {
+    min-height: 500px;
+  }
+  
+  .hit {
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    border: 1px solid #5191d1;
+  }
+  
+  .hit em {
+    font-style: normal;
+    font-weight: bold;
+    color: #1D52E1;
+  }
+</style>
+<!-- ======================== -->
+<!-- DEMO APPLICATION: HTML snippet -->
+<!-- ======================== -->
+<section class='panel'>
+<div class='panel-body'>
+<div class='h2 pull-left'>CS61A Piazza Search</div>
+<div class='pull-right hidden-xs'><a target="_blank" href="https://piazza.com/class/hv3d500fcvs4d8" class="btn btn-large btn-default">Go to Piazza</a>
+</div>
+<div class='clearfix'></div>
+<div class='spacer20 hidden-xs'></div>
+<div class='text-center hidden-xs'>
+A better way to search Piazza. Remember to always search before asking your question.
+<code>http://search.cs61a.org</code>
+</div>
+<div class='spacer20'></div>
+<div class='search-box-wrapper'>
+<div class='search-box'>
+<div id='inputfield'>
+<input autocomplete='off' autocorrect='off' name='address' placeholder='Search Piazza Posts' spellcheck='false' type='text'>
+</div>
+<div class='searchbutton'>
+<i class='icon-search'></i>
+</div>
+</div>
+</div>
+<div class='text-right text-small' id='stats'></div>
+<div id='facets'></div>
+<div id='hits'></div>
+</div>
+</section>
+<!-- ======================== -->
+<!-- DEMO APPLICATION: javascript snippet -->
+<!-- ======================== -->
+<script>
+  // Helper
+  Number.prototype.number_with_delimiter = function(delimiter) {
+    var number = this + '', delimiter = delimiter || ',';
+    var split = number.split('.');
+    split[0] = split[0].replace(/(\d)(?=(\d\d\d)+(?!\d))/g, '$1' + delimiter);
+    return split.join('.');
+  };
+  
+  // faceting global variables
+  var refinements = {};
+  function toggleRefinement(facet, value) {
+    var refine = facet + ':' + value;
+    refinements[refine] = !refinements[refine];
+    search();
+  }
+  
+  //Make something smaller
+  function truncate(string, num){
+     if (string.length > num)
+        return string.substring(0,num)+'...';
+     else
+        return string;
+  };
+
+  // strip HTML tags + keep <em>, <p>, <b>, <i>, <u>, <strong>
+  function stripTags(v) {
+    return $('<div />').text(v).html().replace(/&lt;(\/)?(em|p|b|i|u|strong)&gt;/g, '<$1$2>');
+  }
+  
+  // function called on each keystroke
+  function searchCallback(success, content) {
+    if (content.query != $("#inputfield input").val()) {
+      // this results is out-dated, do not consider it
+      return;
+    }
+  
+    if (content.hits.length == 0 || content.query.trim() === '') {
+      // no results or empty query
+      $('#stats').empty();
+      $('#facets').empty();
+      $('#hits').empty();
+      return;
+    }
+  
+    var res = '';
+    for (var i = 0; i < content.hits.length; ++i) {
+      var hit = content.hits[i];
+  
+      // render the hit
+      res += '<div class="hit">';
+      /// hit image ?
+      if ('' !== '') {
+        res += '<img src="' + stripTags(hit['']) + '" style="width: 100px;" class="pull-left m-r m-b" />';
+      }
+      /// hit title (primary attribute)
+      if ('subject' !== '') {
+        var v = hit._highlightResult['subject'] ?
+          hit._highlightResult['subject'].value :
+          hit['subject'];
+        res += '<span class="h4">';
+        if ('urlto' !== '') { // url attribute
+          res += '<a href="' + stripTags(hit['urlto']) + '">' + stripTags(v) + '</a>';
+        } else {
+          res += stripTags(v);
+        }
+        res += '</span> ';
+      }
+      // hit subtitle (secondary attribute)
+      if ('responses' !== '') {
+        var v = hit._highlightResult['responses'] ?
+          hit._highlightResult['responses'].value :
+          hit['responses'];
+        if (v && v.trim() !== '') {
+          res += '<span class="h5 smalltext">' + truncate(stripTags(v), 210) + '</span>';
+        }
+      }
+      // hit description (tertiary attribute)
+      if ('postContent' !== '') {
+        var v = hit._highlightResult['postContent'] ?
+          hit._highlightResult['postContent'].value :
+          hit['postContent'];
+        if (v && v.trim() !== '') {
+          res += '<p class="detailtext">' + truncate(stripTags(v), 500)  + '</p>';
+        }
+      }
+      // display all other attributes?
+      if (false) {
+        res += '<dl class="dl-horizontal">';
+        for (var attr in hit) {
+          if (attr !== 'objectID' && attr !== '_highlightResult' && attr != 'subject' && attr != 'followups' && attr != 'postContent') {
+            var v;
+            if (hit._highlightResult[attr]) {
+              v = hit._highlightResult[attr].value;
+            } else {
+              v = hit[attr];
+            }
+            if (v && (typeof v !== 'string' || v.trim() !== '')) {
+              res += "<dt>" + stripTags(attr) + ": </dt><dd>" + stripTags(v) + "</dd>";
+            }
+          }
+        }
+        res += '</dl>';
+      }
+      res += '<div class="clearfix"></div></div>';
+    }
+    $('#hits').html(res);
+  
+    if (content.facets && !$.isEmptyObject(content.facets)) {
+      res = '<ul class="list-unstyled">'
+      for (var facet in content.facets) {
+        var facets = [];
+        for (var f in content.facets[facet]) {
+          facets.push([f, content.facets[facet][f]]);
+        }
+        facets.sort(function(a, b) { return a[1] < b[1] ? 1 : (a[1] > b[1] ? -1 : 0) });
+        res += '<li class="m-b-large"><h5>' + facet + '</h5>' +
+          '<ol class="list-unstyled m-l">' +
+          $.map(facets, function(v) {
+            return '<li class="' + stripTags(refinements[facet + ':' + v[0]] ? 'active' : '') + '"><a href="#" onclick="toggleRefinement(\'' + stripTags(facet) + '\', \'' + stripTags(v[0]) + '\'); return false;">' + stripTags(v[0]) + '</a> (' + v[1] + ')</li>';
+          }).join('') +
+          '</ol></li>';
+      }
+      res += '</ul>'
+      $('#facets').html(res).css('float', 'left').css('width', '200px');
+      $('#hits').css('float', 'left').css('width', '600px');
+    }
+  
+    // stats
+    $('#stats').html('<b>' + content.nbHits.number_with_delimiter() + '</b> result' + (content.nbHits > 1 ? 's' : '') + ', <b>' + content.processingTimeMS + '</b> ms')
+  }
+  
+  
+  $(document).ready(function() {
+    var algolia = new AlgoliaSearch('LHANIWJEIC', '652f308c5f9af905348a8a3c7342fc55');
+    var index = algolia.initIndex('CS61A Index');
+  
+    window.search = function() {
+      var facetFilters = [];
+      for (var refine in refinements) {
+        if (refinements[refine]) {
+          facetFilters.push(refine);
+        }
+      }
+      index.search($("#inputfield input").val(), searchCallback, {
+        hitsPerPage: 10,
+        facets: '*',
+        maxValuesPerFacet: 10,
+        facetFilters: facetFilters,
+        distinct: 1
+      });
+    }
+  
+    $("#inputfield input").keyup(function() {
+      refinements = {};
+      window.search();
+    }).focus();
+  
+    if ($("#inputfield input").val() !== '') {
+      window.search();
+    }
+  });
+</script>
+<!--
+8<---------------8<---------------8<---------------8<---------------
+END COPY/PASTE
+-->
+For CS61A Summer 2014 <a href="//twitter.com/sumukhsridhara">@sumukhsridhara</a>  Powered by <a href="http://www.algolia.com/">Algolia Search</a>
+</div>
+</div>
+</div>
+
+
+
+<script>
+  console.log(
+    "Powered by:\n" +
+    "\n" +
+    "                      oooo                                        oooo     oo                \n" +
+    "        ooooo         oooo                                       ooooo   ooooo               \n" +
+    "       ooooooo        oooo                         oxxxxxxo      ooooo     oo                \n" +
+    "      ooooooooo       oooo          ooooo     ooo  oooooooo      ooooo              oooooo   \n" +
+    "     oooooooooo       oooo     ooooooooooooo oxxxooxxxxxxxxoo    ooooo    oooo    ooooooooooo\n" +
+    "    ooooo  ooooo      oooo    oooooo    oooo  oxxxooo  oooxxxoo  ooooo    oooo           oooo\n" +
+    "   ooooo    ooooo     oooo   ooooo      oooo  oxxoo   oxxxxoxxxo ooooo    oooo           oooo\n" +
+    "   ooooooooooooooo    oooo   ooooo      oooo  xxxo    oooo  xxxo ooooo    oooo    ooooooooooo\n" +
+    "  ooooooooooooooooo   oooo   ooooo      oooo  oxxo         oxxxo ooooo    oooo  oooooo   oooo\n" +
+    " ooooo         oooo   oooo    oooooo   ooooo  ooxxoo      ooxxo  ooooo    oooo  ooooo     ooo\n" +
+    "ooooo          ooooo  oooooo   ooooooooooooo    oxxxoooooxxxoo    oooooo  oooo   oooooooooooo\n" +
+    "oooo            oooo   ooooo           ooooo      oooooooooo       ooooo  oooo     oooooooooo\n" +
+    "                               oo      ooooo                                                 \n" +
+    "                              ooooooooooooo                                                  \n" +
+    "\n" +
+    "                      POWERFUL REALTIME SEARCH API BUILT FOR DEVELOPERS\n" +
+    "                               http://www.algolia.com/console"
+  );
+</script>
+</body>
+</html>
+
