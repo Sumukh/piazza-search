@@ -8,7 +8,9 @@ import config
 
 # Initialize API Client & Index
 client = algoliasearch.Client(config.aloglia_id, config.algolia_key)
-index = client.initIndex('CS61A Index')
+
+search = client.initIndex('CS61A Index')
+
 classid = config.classid
 
 p = piazza.PiazzaAPI(classid)
@@ -39,6 +41,8 @@ def process(start=6, end=1500):
 	for i in range(start,end):
 	    # select the identifier of this row
 		post = p.get(i)
+		
+		# Post is now a dictionary of the post we have. 
 
 		if post['error'] != None or post['result'] == None:
 			pass
@@ -106,11 +110,11 @@ def process(start=6, end=1500):
 			array.append(row)
 
 			if len(array) == 35:
-				index.saveObjects(array)
+				search.saveObjects(search)
 				array = []
 				print("saving to search")
 
 
-	index.saveObjects(array)
+	search.saveObjects(array)
 
 process()
