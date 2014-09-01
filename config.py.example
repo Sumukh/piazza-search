@@ -3,3 +3,6 @@
 aloglia_id = "KEY"
 algolia_key = "longerk3y"
 classid = "piazzakye"
+index = 'Class Index'
+email = 'test@example.com'
+password = 'hunter2'

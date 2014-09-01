@@ -4,17 +4,18 @@ import json, re, html.parser
 from algoliasearch import algoliasearch
 import piazza_api as piazza
 import config 
+import tempfile
 
 
 # Initialize API Client & Index
 client = algoliasearch.Client(config.aloglia_id, config.algolia_key)
 
-search = client.initIndex('CS61A Index')
+search = client.initIndex('CS61A Fa14 Index')
 
 classid = config.classid
 
 p = piazza.PiazzaAPI(classid)
-p.user_auth()
+p.user_auth(config.email, config.password)
 
 h = html.parser.HTMLParser()
 
@@ -33,18 +34,42 @@ def html_decode(s):
     #     s = s.replace(code[1], code[0])
     return h.unescape(s)
 
+def readTempFile():
+	try: 
+		info = open('results.txt', 'r')
+		data = info.read()
+		return int(data)
+	except:
+		return None
 
-def process(start=6, end=1500):
+def writeTempFile(endPost):
+	try: 
+		info = open('results.txt', 'w')
+		data = info.write(str(endPost))
+	except:
+		return None
+
+
+def process(start=6):
 	array = []
 
+	# Count the times we've failed so we know when to stop.
+	last_fail_counter = 0
+
+	# i is the post counter
+	i = start - 1
+
 	# iterate over results and send them by batch of 10000 elements
-	for i in range(start,end):
+	while last_fail_counter < 5:
+		i += 1
+
 	    # select the identifier of this row
 		post = p.get(i)
 		
 		# Post is now a dictionary of the post we have. 
 
 		if post['error'] != None or post['result'] == None:
+			last_fail_counter += 1
 			pass
 		else: 
 			result = post['result']
@@ -59,6 +84,7 @@ def process(start=6, end=1500):
 				if result['status'] == "private":
 					pass
 
+			last_fail_counter = 0
 			row['objectID'] = i
 
 
@@ -114,7 +140,16 @@ def process(start=6, end=1500):
 				array = []
 				print("saving to search")
 
-
 	search.saveObjects(array)
 
-process()
+	lastSuccess = i - last_fail_counter
+
+	print("Stopped at "+str(lastSuccess))
+
+	writeTempFile(lastSuccess)
+
+leftOffAt = readTempFile() 
+if leftOffAt is None:
+	leftOffAt = 6
+
+process(leftOffAt)

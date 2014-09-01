@@ -1,16 +1,19 @@
 
+
 <!DOCTYPE html>
 <html class='height_100'>
 <head>
 <title>CS61A Summer 2014 Piazza Search</title>
 <meta content="Search Summer 61A Piazza." name='description'>
 <meta content='width=device-width, initial-scale=1.0' name='viewport'>
-<link href="https://d3ibatyzauff7b.cloudfront.net/assets/application-fed36c275a1421441a1b00d92fb2a37b.css" media="all" rel="stylesheet" type="text/css" />
-<script src="https://d3ibatyzauff7b.cloudfront.net/assets/application-d093ba0a70b080c5a072c896ff93d40a.js" type="text/javascript"></script>
+<link href="https://d3ibatyzauff7b.cloudfront.net/assets/application-8d2b14f91b0b41cd150435ba039961df.css" media="all" rel="stylesheet" type="text/css">
+
+
+<script src="https://d3ibatyzauff7b.cloudfront.net/assets/application-457fe258ca60591bbdb38ec84a117174.js" type="text/javascript"></script>
 <!--[if lt IE 9]>
 <link href="https://d3ibatyzauff7b.cloudfront.net/assets/ie-76071597f2842bcd91fc8e1a931fa929.css" media="screen" rel="stylesheet" type="text/css" />
-<script src="https://d3ibatyzauff7b.cloudfront.net/assets/respond.min-d9d09a20f99ea128488a29576bf0652f.js" type="text/javascript"></script>
-<script src="https://d3ibatyzauff7b.cloudfront.net/assets/html5-01533c787c35d4858f5397d89146464c.js" type="text/javascript"></script>
+<script src="https://d3ibatyzauff7b.cloudfront.net/assets/respond.min-9be91f7ec4b04e302adaa16bd6a13df4.js" type="text/javascript"></script>
+<script src="https://d3ibatyzauff7b.cloudfront.net/assets/html5-edaded9c29babfcbf5f875c95e8e87a3.js" type="text/javascript"></script>
 <![endif]-->
 <link href="http://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" media="all" rel="stylesheet" type="text/css" />
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" media="all" rel="stylesheet" type="text/css" />
@@ -18,8 +21,9 @@
 <script src="http://demos.algolia.com/algoliasearch.min.js" type="text/javascript"></script>
 
 </head>
-<body>
+<body style="height:100%">
 <div id='clear-page'>
+
 <div class='container'>
 <div class='m-l-r-auto m1000'>
 <!--
@@ -211,7 +215,7 @@ Subtitle: Search Piazza
 }
 .ribbon-green:after {
   right: 0;
-}​
+}â€‹
 </style>
 <!-- ======================== -->
 <!-- DEMO APPLICATION: HTML snippet -->
@@ -388,7 +392,7 @@ A better way to search Piazza. Remember to always search before asking your ques
   
   $(document).ready(function() {
     var algolia = new AlgoliaSearch('LHANIWJEIC', '652f308c5f9af905348a8a3c7342fc55');
-    var index = algolia.initIndex('CS61A Index');
+    var index = algolia.initIndex('CS61A Fa14 Index');
   
     window.search = function() {
       var facetFilters = [];
@@ -416,7 +420,7 @@ A better way to search Piazza. Remember to always search before asking your ques
     }
   });
 </script>
-For CS61A Summer 2014 <a href="//twitter.com/sumukhsridhara">@sumukhsridhara</a>  Powered by <a href="http://www.algolia.com/">Algolia Search</a>
+For CS61A Fall 2014 <a href="//twitter.com/sumukhsridhara">@sumukhsridhara</a>  Powered by <a href="http://www.algolia.com/">Algolia Search</a>
 </div>
 </div>
 </div>
@@ -448,4 +452,5 @@ For CS61A Summer 2014 <a href="//twitter.com/sumukhsridhara">@sumukhsridhara</a>
 </script>
 </body>
 </html>
+
 
