@@ -139,8 +139,8 @@ def process(start=6):
 				search.saveObjects(search)
 				array = []
 				print("saving to search")
-
-	search.saveObjects(array)
+	if len(array) > 0:
+		search.saveObjects(array)
 
 	lastSuccess = i - last_fail_counter
 
@@ -148,8 +148,10 @@ def process(start=6):
 
 	writeTempFile(lastSuccess)
 
-leftOffAt = readTempFile() 
+leftOffAt = readTempFile()  
 if leftOffAt is None:
 	leftOffAt = 6
+else:
+	leftOffAt += 1
 
 process(leftOffAt)
